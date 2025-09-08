@@ -1,18 +1,17 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart'; // 1. Import Riverpod
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../data/character_model.dart';
 import '../screens/character_detail_screen.dart';
-import '../../../../core/providers/core_providers.dart'; // 2. Import the new provider
+import '../../../../core/providers/core_providers.dart';
 
-// 3. Make the widget a ConsumerWidget
 class CharacterCard extends ConsumerWidget {
   final Character character;
-  const CharacterCard({super.key, required this.character});
+  const CharacterCard({super.key, required this.character, required Color cardColor});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) { // 4. Add WidgetRef
-    // 5. Watch the remote config provider
+  Widget build(BuildContext context, WidgetRef ref) {
+    // Watch remote config provider
     final remoteConfigAsync = ref.watch(remoteConfigProvider);
 
     return GestureDetector(
@@ -43,17 +42,17 @@ class CharacterCard extends ConsumerWidget {
           ),
           title: Text(character.name),
           subtitle: Text('${character.status} - ${character.species}'),
-          // 6. Use the remote config value to build the trailing widget
+          // Use the remote config to build the trailing widget
           trailing: remoteConfigAsync.when(
             data: (configService) {
               // If the flag is true, show the episode count
               if (configService.showEpisodeCount) {
                 return Text('Episodes: ${character.episodeCount}');
               }
-              // Otherwise, show an empty widget
+              // Otherwise show an empty widget
               return const SizedBox.shrink();
             },
-            // Show nothing while loading or if there's an error
+            // Show nothing while loading
             loading: () => const SizedBox.shrink(),
             error: (err, stack) => const SizedBox.shrink(),
           ),

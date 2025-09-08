@@ -8,7 +8,7 @@ class FavoritesScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // Watch our new provider to get the list of favorite characters.
+    // Watch new provider to get favorite characters
     final favoritesAsyncValue = ref.watch(favoriteCharactersProvider);
 
     return Scaffold(
@@ -17,23 +17,25 @@ class FavoritesScreen extends ConsumerWidget {
       ),
       body: favoritesAsyncValue.when(
         data: (characters) {
-          // If the list is empty, show a message.
+          // If the list is empty
           if (characters.isEmpty) {
             return const Center(
               child: Text('You have no favorite characters yet.'),
             );
           }
-          // Otherwise, display the list of characters.
+          // Otherwise, display characters
           return ListView.builder(
             itemCount: characters.length,
             itemBuilder: (context, index) {
-              return CharacterCard(character: characters[index]);
+              return CharacterCard(
+                character: characters[index],
+                cardColor: Theme.of(context).cardColor,
+              );
             },
           );
         },
-        // Show a loading spinner while fetching data.
+        // Show loading spinner while fetching data
         loading: () => const Center(child: CircularProgressIndicator()),
-        // Show an error message if something goes wrong.
         error: (err, stack) => Center(child: Text('Error: $err')),
       ),
     );

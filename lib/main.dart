@@ -20,8 +20,13 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Character Explorer',
-      theme: ThemeData.dark(useMaterial3: true),
-      // Use AuthWrapper as the home widget
+      theme: ThemeData.from(
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: const Color.fromARGB(255, 71, 174, 248),
+          brightness: Brightness.dark,
+        ),
+        useMaterial3: true,
+      ),
       home: const AuthWrapper(),
     );
   }

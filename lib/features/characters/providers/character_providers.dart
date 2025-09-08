@@ -6,12 +6,12 @@ import '../data/character_model.dart';
 // Provider to hold the current search query string
 final searchQueryProvider = StateProvider<String>((ref) => '');
 
-// Provider to hold the current status filter (e.g., 'Alive', 'Dead', or '')
+// Provider to hold the current status filter (Alive or Dead)
 final statusFilterProvider = StateProvider<String>((ref) => '');
-// 1. Provider for our ApiService
+// Provider for ApiService
 final apiServiceProvider = Provider<ApiService>((ref) => ApiService());
 
-// 2. The State class that holds our character list data
+// The State class that holds character list data
 class CharacterState {
   final List<Character> characters;
   final int currentPage;
@@ -40,7 +40,7 @@ class CharacterState {
   }
 }
 
-// 3. The StateNotifier that manages the CharacterState
+// The StateNotifier that manages the CharacterState
 class CharacterNotifier extends StateNotifier<CharacterState> {
   final ApiService _apiService;
 
@@ -57,7 +57,7 @@ class CharacterNotifier extends StateNotifier<CharacterState> {
 
     final newCharacters = await _apiService.getCharacters(page: state.currentPage);
 
-    // If the API returns an empty list, it means we've reached the end
+    // If the API returns an empty list
     if (newCharacters.isEmpty) {
       state = state.copyWith(isLoading: false, hasMore: false);
     } else {
@@ -70,7 +70,7 @@ class CharacterNotifier extends StateNotifier<CharacterState> {
   }
 }
 
-// 4. The final StateNotifierProvider that the UI will interact with
+// The final StateNotifierProvider that the UI will interact with
 final characterNotifierProvider =
     StateNotifierProvider<CharacterNotifier, CharacterState>((ref) {
   final apiService = ref.watch(apiServiceProvider);
@@ -78,19 +78,19 @@ final characterNotifierProvider =
 });
 
 final filteredCharactersProvider = Provider<List<Character>>((ref) {
-  // Watch all the providers we need
+  // Watch all the providers
   final characterState = ref.watch(characterNotifierProvider);
   final searchQuery = ref.watch(searchQueryProvider);
   final statusFilter = ref.watch(statusFilterProvider);
 
   List<Character> characters = characterState.characters;
 
-  // Apply the status filter
+  // Status filter
   if (statusFilter.isNotEmpty) {
     characters = characters.where((char) => char.status == statusFilter).toList();
   }
 
-  // Apply the search query
+  // Search query
   if (searchQuery.isNotEmpty) {
     characters = characters
         .where((char) => char.name.toLowerCase().contains(searchQuery.toLowerCase()))

@@ -1,18 +1,17 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart'; // 1. Import Riverpod
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../data/character_model.dart';
-import '../../../favorites/providers/favorites_provider.dart'; // 2. Import the new providers
+import '../../../favorites/providers/favorites_provider.dart'; 
 
-// 3. Make the widget a ConsumerWidget
 class CharacterDetailScreen extends ConsumerWidget {
   final Character character;
 
   const CharacterDetailScreen({super.key, required this.character});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) { // 4. Add WidgetRef
-    // 5. Watch the stream of favorite IDs
+  Widget build(BuildContext context, WidgetRef ref) {
+    // Watch the stream of favorite IDs
     final favoritesAsyncValue = ref.watch(favoritesStreamProvider);
 
     return Scaffold(
@@ -20,7 +19,6 @@ class CharacterDetailScreen extends ConsumerWidget {
         title: Text(character.name),
       ),
       body: SingleChildScrollView(
-        // ... (The top part of your Column remains the same)
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -45,7 +43,7 @@ class CharacterDetailScreen extends ConsumerWidget {
             _buildInfoRow(context, 'Episodes Appeared In:', '${character.episodeCount}'),
             const SizedBox(height: 24),
             
-            // 6. Use the favorites data to build the button
+            // Use favorites data to build the button
             favoritesAsyncValue.when(
               data: (favoriteIds) {
                 final isFavorite = favoriteIds.contains(character.id);
@@ -75,9 +73,7 @@ class CharacterDetailScreen extends ConsumerWidget {
     );
   }
 
-  // Helper widget remains the same
   Widget _buildInfoRow(BuildContext context, String label, String value) {
-    // ...
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Row(

@@ -44,17 +44,15 @@ class AuthService {
   }
 }
 Future<List<Character>> getCharactersByIds(List<int> ids, dynamic _dio) async {
-  // If the list of IDs is empty, return an empty list to avoid an API error.
+  // If the list of IDs is empty return an empty list
   if (ids.isEmpty) {
     return [];
   }
 
   try {
-    // The API accepts a comma-separated string of IDs, e.g., /character/1,2,3
     final response = await _dio.get('/character/${ids.join(',')}');
     
-    // The API returns a single object if only one ID is requested,
-    // so we need to handle both cases (a single map or a list of maps).
+    // The API returns a single object if only one ID is requested
     final dynamic data = response.data;
     if (data is List) {
       return data.map((e) => Character.fromJson(e)).toList();

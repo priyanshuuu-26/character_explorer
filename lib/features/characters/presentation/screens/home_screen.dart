@@ -129,7 +129,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                         return const Center(child: CircularProgressIndicator());
                       }
                       final character = filteredCharacters[index];
-                      return CharacterCard(character: character);
+                      return CharacterCard(
+                        character: character,
+                        cardColor: Theme.of(context).cardColor,
+                      );
                     },
                   ),
           ),

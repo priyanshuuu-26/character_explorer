@@ -14,11 +14,11 @@ class AuthWrapper extends ConsumerWidget {
 
     return authState.when(
       data: (user) {
-        // If we have a user object, they are logged in. Show the HomeScreen.
+        // If we have a user they are logged in and show the HomeScreen
         if (user != null) {
           return const HomeScreen();
         }
-        // If user is null, they are logged out. Show the LoginScreen.
+        // If user is null they are logged out and show the LoginScreen
         return const LoginScreen();
       },
       // Show a loading screen while we check the auth state

@@ -18,7 +18,6 @@ class FirestoreService {
         .collection('favorites')
         .snapshots()
         .map((snapshot) {
-      // Map the document snapshots to a list of character IDs (which are the doc IDs)
       return snapshot.docs.map((doc) => int.parse(doc.id)).toList();
     });
   }
@@ -34,7 +33,7 @@ class FirestoreService {
         .collection('favorites')
         .doc(characterId.toString()) // Use character ID as document ID
         .set({
-      'favoritedAt': Timestamp.now(), // Store a timestamp or other data
+      'favoritedAt': Timestamp.now(), // Store a timestamp
     });
   }
 

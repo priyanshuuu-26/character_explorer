@@ -15,7 +15,7 @@ class Character {
     required this.episodeCount,
   });
 
-  // A factory constructor to create a Character from JSON
+  // Factory constructor to create character from JSON
   factory Character.fromJson(Map<String, dynamic> json) {
     return Character(
       id: json['id'],
