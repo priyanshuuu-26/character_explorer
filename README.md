@@ -1,6 +1,6 @@
 # 🚀 Character Explorer  
 
-A **Flutter application** for exploring characters from the **Rick and Morty universe**, built as a submission for an internship task.  
+A **Flutter application** for exploring characters from the **Rick and Morty universe**.
 This project demonstrates **Firebase integration, real-time configuration, and state management** with Riverpod.  
 
 ---
@@ -59,7 +59,7 @@ Make sure you have installed:
 
 1. **Clone the repository**  
     ```bash
-    git clone https://github.com/your-username/character_explorer.git
+    git clone https://github.com/priyanshuuu-26/character_explorer.git
     cd character_explorer
     ```
 
@@ -123,7 +123,3 @@ Make sure you have installed:
 - [Flutter](https://flutter.dev/)  
 
 ---
-
-## 📄 License  
-
-This project is licensed under the MIT License — feel free to use and modify.  
